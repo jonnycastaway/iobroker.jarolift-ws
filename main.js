@@ -149,14 +149,14 @@ class JaroliftAdapter extends utils.Adapter {
     }
 
     async _createShutterStates(base, name) {
-        // Command state (up / down / stop / shade)
-        await this.setObjectNotExistsAsync(`${base}.command`, {
+        // Command state (up / down / stop / shade) – string selector
+        await this.setObjectAsync(`${base}.command`, {
             type: 'state',
             common: {
                 name: `${name} – Befehl`,
                 type: 'string',
-                role: 'button',
-                read: false,
+                role: 'text',
+                read: true,
                 write: true,
                 states: {
                     up:    'Hoch',
@@ -168,14 +168,14 @@ class JaroliftAdapter extends utils.Adapter {
             native: {},
         });
 
-        // Convenience boolean states
+        // Button states – role "button" tells ioBroker UI to render as button
         for (const [action, label] of [
             ['up',    'Hoch'],
             ['down',  'Runter'],
             ['stop',  'Stop'],
             ['shade', 'Schattenstellung'],
         ]) {
-            await this.setObjectNotExistsAsync(`${base}.${action}`, {
+            await this.setObjectAsync(`${base}.${action}`, {
                 type: 'state',
                 common: {
                     name: `${name} – ${label}`,
@@ -183,14 +183,13 @@ class JaroliftAdapter extends utils.Adapter {
                     role: 'button',
                     read: false,
                     write: true,
-                    def: false,
                 },
                 native: {},
             });
         }
 
         // Last command (read-only)
-        await this.setObjectNotExistsAsync(`${base}.lastCommand`, {
+        await this.setObjectAsync(`${base}.lastCommand`, {
             type: 'state',
             common: {
                 name: `${name} – Letzter Befehl`,
@@ -239,8 +238,14 @@ class JaroliftAdapter extends utils.Adapter {
         this.log.info(`Sende: ${kind} ${index} → ${action}`);
         await this._sendCommand(isGroup, index, action);
 
-        // Update lastCommand
         const base = `${kind}.${index}`;
+
+        // Reset button state back to false (ack) so it's pressable again
+        if (stateKey !== 'command') {
+            await this.setStateAsync(`${base}.${stateKey}`, { val: false, ack: true });
+        }
+
+        // Update lastCommand
         await this.setStateAsync(`${base}.lastCommand`, { val: action, ack: true });
     }
 
