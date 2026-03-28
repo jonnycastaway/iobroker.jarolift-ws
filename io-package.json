@@ -1,0 +1,63 @@
+{
+  "common": {
+    "name": "jarolift",
+    "version": "1.0.1",
+    "news": {
+      "1.0.1": {
+        "en": "Initial release",
+        "de": "Erste Version"
+      }
+    },
+    "title": "Jarolift Controller",
+    "titleLang": {
+      "en": "Jarolift Controller",
+      "de": "Jarolift Controller"
+    },
+    "desc": {
+      "en": "Control Jarolift roller shutters via ESP32-Jarolift-Controller WebSocket",
+      "de": "Jarolift Rollläden über ESP32-Jarolift-Controller WebSocket steuern"
+    },
+    "authors": ["Your Name <your@email.com>"],
+    "keywords": ["jarolift", "rollladen", "shutter", "esp32"],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "admin/jarolift.png",
+    "enabled": true,
+    "extIcon": "admin/jarolift.png",
+    "readme": "https://github.com/your/iobroker.jarolift/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "garden",
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "supportCustoms": false
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "WebSocket verbunden",
+        "type": "boolean",
+        "role": "indicator.connected",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
+}
