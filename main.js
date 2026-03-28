@@ -45,9 +45,27 @@ class JaroliftAdapter extends utils.Adapter {
     // Object creation
     // ─────────────────────────────────────────────
 
+    async _cleanupObjects(kind, keepCount) {
+        // Delete channel/group indices that exceed the configured count
+        for (let i = keepCount; i < 16; i++) {
+            const base = `${kind}.${i}`;
+            const obj = await this.getObjectAsync(base);
+            if (!obj) break; // no more objects exist beyond this index
+            this.log.info(`Entferne überzähligen Eintrag: ${base}`);
+            for (const state of ['up', 'down', 'stop', 'shade', 'command', 'lastCommand']) {
+                await this.delObjectAsync(`${base}.${state}`);
+            }
+            await this.delObjectAsync(base);
+        }
+    }
+
     async _createObjects() {
         const numChannels = this.config.num_channels || 4;
         const numGroups   = this.config.num_groups   || 0;
+
+        // ── Cleanup excess objects from previous config ──
+        await this._cleanupObjects('channels', numChannels);
+        await this._cleanupObjects('groups', numGroups);
 
         // ── Channels ──
         await this.setObjectNotExistsAsync('channels', {
