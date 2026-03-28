@@ -6,7 +6,7 @@
     "name": "Your Name",
     "email": "your@email.com"
   },
-  "homepage": "https://github.com/dewenni/ESP32-Jarolift-Controller",
+  "homepage": "https://github.com/jonnycastaway/iob-jarolift-ws",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -20,10 +20,8 @@
     "start": "node main.js"
   },
   "dependencies": {
+    "@iobroker/adapter-core": "^3.0.0",
     "ws": "^8.16.0"
-  },
-  "devDependencies": {
-    "@iobroker/adapter-dev": "^1.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
