@@ -1,5 +1,5 @@
 {
-  "name": "iobroker.jarolift",
+  "name": "iobroker.jarolift-ws",
   "version": "1.0.1",
   "description": "ioBroker Adapter für ESP32-Jarolift-Controller (WebSocket)",
   "author": {

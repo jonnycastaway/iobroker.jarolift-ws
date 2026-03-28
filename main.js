@@ -9,7 +9,7 @@ const ELEMENT_GROUP = 'p02';
 
 class JaroliftAdapter extends utils.Adapter {
     constructor(options = {}) {
-        super({ ...options, name: 'jarolift' });
+        super({ ...options, name: 'jarolift-ws' });
 
         this._ws = null;
         this._reconnectTimer = null;
