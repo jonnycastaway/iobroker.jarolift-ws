@@ -1,0 +1,29 @@
+{
+  "name": "iobroker.jarolift-ws",
+  "version": "1.0.2",
+  "description": "ioBroker Adapter für ESP32-Jarolift-Controller (WebSocket)",
+  "author": {
+    "name": "Your Name",
+    "email": "your@email.com"
+  },
+  "homepage": "https://github.com/jonnycastaway/iob-jarolift-ws",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "jarolift",
+    "rollladen",
+    "shutter",
+    "esp32"
+  ],
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.0.0",
+    "ws": "^8.16.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
